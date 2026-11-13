@@ -192,7 +192,7 @@ $('#fa').onsubmit=e=>{e.preventDefault();const k=$('#ak').value,n=esc($('#an').v
 /* Data */
 $('#idm').innerHTML=[['Indeks Ketahanan Sosial',81],['Indeks Ketahanan Ekonomi',74],['Indeks Ketahanan Lingkungan',79]].map(d=>`<b>${d[0]}</b> <span style="float:right">0,${d[1]}</span><div class="pb"><b style="width:${d[1]}%"></b></div>`).join('');
 $('#sdg').innerHTML='<p class="mu">Capaian contoh untuk 6 dari 18 tujuan.</p><div class="grid">'+[['Desa tanpa kemiskinan',72],['Desa sehat dan sejahtera',81],['Pendidikan desa berkualitas',76],['Air bersih dan sanitasi',88],['Energi bersih dan terjangkau',69],['Desa peduli lingkungan',74]].map(d=>`<div><b>${d[0]}</b> <span style="float:right">${d[1]}%</span><div class="pb"><b style="width:${d[1]}%"></b></div></div>`).join('')+'</div>';
-$('#stat').innerHTML=[['Penduduk','4.212'],['Kepala keluarga','1.268'],['Laki-laki','2.098'],['Perempuan','2.114']].map(s=>`<div class="card"><div class="big" style="font-size:30px">${s[1]}</div><span class="mu">${s[0]}</span></div>`).join('');
+$('#stat').innerHTML=[['Penduduk','7.542'],['Kepala keluarga','1.268'],['Laki-laki','3.619'],['Perempuan','3.923']].map(s=>`<div class="card"><div class="big" style="font-size:30px">${s[1]}</div><span class="mu">${s[0]}</span></div>`).join('');
 const age=[['0–14',980],['15–29',1120],['30–44',1090],['45–59',640],['60+',382]];
 $('#age').innerHTML=age.map(a=>`<div><small>${a[1]}</small><b style="height:${a[1]/1120*78}%"></b><small>${a[0]}</small></div>`).join('');
 const J=[['Petani',42,'#26795f'],['Pedagang dan UMKM',21,'#2f77a8'],['Buruh',14,'#6fb3a0'],['PNS dan guru',8,'#8dbbe0'],['Lainnya',15,'#b9cfc9']];let a=0;
