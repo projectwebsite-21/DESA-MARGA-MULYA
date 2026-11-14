@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+  <title>
+   Desa Marga Mulya – Website Desa
+  </title>
+  <style>
+   :root{--bg:#12304A;--card:#537bd2;--tx:#fefeff;--mu:#010201;--g:#474a71;--b:#afd01a;--soft:#8fca98;--line:#5b60ba;--on:#fff;--wb:#fdf3dc;--wt:#7a5410;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#19a99d;--card:#ea3b13;--tx:#25b490;--mu:#9db8b2;--g:#5cc2a0;--b:#6aaee0;--soft:#1d3331;--line:#284341;--on:#0b1a17;--wb:#3a2f14;--wt:#f0d38c}}
+:root[data-theme="dark"]{--bg:#25a1ce;--card:#35b15e;--tx:#e6f2ef;--mu:#9db8b2;--g:#5cc2a0;--b:#6aaee0;--soft:#1d3331;--line:#284341;--on:#0b1a17;--wb:#3a2f14;--wt:#f0d38c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:30}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.wrap{max-width:1080px;margin:auto;display:flex;align-items:center;gap:12px;padding:10px 16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;line-height:1.25}
+.logo i{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--g),var(--b));display:grid;place-items:center;font-style:normal;font-size:24px}
+.logo small{display:block;font-weight:400;color:var(--mu);font-size:14px}
+
+/* Gaya untuk Widget Waktu Real-Time */
+.clock-box{margin-left:auto;text-align:right;background:var(--soft);padding:6px 12px;border-radius:12px;border:1px solid var(--line);line-height:1.25;font-size:13px}
+.clock-box .time{display:block;font-weight:800;font-size:15px;color:var(--g);font-variant-numeric:tabular-nums}
+.clock-box .date{display:block;color:var(--tx);font-weight:500}
+@media(min-width:860px){.clock-box{margin-left:12px;text-align:left}}
+
+nav.top{display:none;margin-left:auto;gap:4px}
+nav.top a{padding:10px 14px;border-radius:12px;font-weight:600}
+nav a.on{background:var(--soft);color:var(--g)}
+nav.bot{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+nav.bot a{display:flex;flex-direction:column;align-items:center;font-size:13px;padding:4px 0;border-radius:12px;min-height:52px;color:var(--mu);font-weight:600}
+nav.bot a.on{color:var(--g)}nav.bot span{font-size:21px}
+@media(min-width:860px){nav.top{display:flex}nav.bot{display:none}body{padding-bottom:0}}
+main{max-width:1080px;margin:auto;padding:16px}
+h1{font-size:27px;line-height:1.25;margin:8px 0 4px}h2{font-size:22px;margin:28px 0 12px}h3{font-size:18px;margin:0 0 4px}
+p{margin:0 0 10px}.mu{color:var(--mu)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid.s{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border:0;border-radius:14px;background:var(--g);color:var(--on);font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:var(--soft);color:var(--g)}
+:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+.slider{position:relative;overflow:hidden;border-radius:20px;border:1px solid var(--line)}
+.slides{display:flex;transition:transform .5s}
+.sl{min-width:100%;height:clamp(220px,42vw,380px);position:relative}
+.sl svg{width:100%;height:100%;display:block}
+.sl p{position:absolute;inset:auto 0 0;margin:0;padding:40px 18px 16px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6));display:flex;flex-direction:column}
+.sl b{font-size:20px}
+.sb{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:#17332e;font-size:26px;cursor:pointer}
+.prev{left:8px}.next{right:8px}
+.dots{position:absolute;top:12px;right:14px;display:flex;gap:6px}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.55)}.dots i.on{background:#fff}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+@media(min-width:700px){.quick{grid-template-columns:repeat(4,1fr)}}
+.quick a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:104px;text-align:center;font-weight:600;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px}
+.quick a:first-child{background:var(--g);color:var(--on);border-color:var(--g)}
+.quick span{font-size:30px}
+.tag{display:inline-block;padding:2px 12px;border-radius:99px;background:var(--soft);color:var(--g);font-size:14px;font-weight:600}
+.tag.w{background:var(--wb);color:var(--wt)}
+.nw .im{height:110px;border-radius:12px;margin-bottom:10px;display:grid;place-items:center;font-size:40px;background:linear-gradient(135deg,var(--soft),var(--line))}
+.ann{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.ann:last-child{border:0}
+.ph{aspect-ratio:1;border-radius:14px;margin-bottom:8px;display:grid;place-items:end center;overflow:hidden}
+.ph svg{width:70%;fill:#fff;opacity:.9}
+.stf{text-align:center}.stf p{margin:0}
+label{display:block;font-weight:600;margin:12px 0 6px}
+input,select,textarea{width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:var(--bg);color:var(--tx)}
+textarea{min-height:110px}
+.ok{background:#dff3e8;color:#1c6b43}.pr{background:var(--wb);color:var(--wt)}.nw2{background:#dcebf7;color:#1d5a86}
+.st{display:inline-block;padding:2px 12px;border-radius:99px;font-size:14px;font-weight:600}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ok{background:#17402e;color:#9fe0bd}:root:not([data-theme="light"]) .nw2{background:#173449;color:#a3cfee}}
+.steps{list-style:none;padding:0;margin:10px 0 0}
+.steps li{padding:8px 0 8px 36px;position:relative;color:var(--mu)}
+.steps li::before{content:"";position:absolute;left:4px;top:11px;width:20px;height:20px;border-radius:50%;border:2px solid var(--line)}
+.steps li.d{color:var(--tx)}.steps li.d::before{background:var(--g);border-color:var(--g)}
+.steps li.n{font-weight:700;color:var(--g)}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}
+.pb{height:12px;border-radius:99px;background:var(--soft);overflow:hidden;margin:6px 0 12px}
+.pb b{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--b))}
+.big{font-size:44px;font-weight:800;line-height:1.1;color:var(--g)}
+.cols{display:flex;align-items:flex-end;gap:10px;height:190px}
+.cols div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;text-align:center}
+.cols b{width:100%;border-radius:8px 8px 0 0;background:linear-gradient(var(--b),var(--g))}.cols small{font-size:14px}
+.donut{width:170px;height:170px;border-radius:50%;margin:8px auto 14px;position:relative}
+.donut::after{content:"";position:absolute;inset:34px;border-radius:50%;background:var(--card)}
+.lg{display:flex;align-items:center;gap:8px;font-size:15px}.lg i{width:14px;height:14px;border-radius:4px}
+.pd .im{height:120px;border-radius:12px;margin-bottom:10px;display:grid;place-items:center;font-size:52px;background:linear-gradient(135deg,var(--soft),var(--line))}
+.pd .btn{width:100%;margin-top:6px}
+.fab{position:fixed;right:16px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:25;width:60px;height:60px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--g),var(--b));color:var(--on);font-size:28px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.chat{position:fixed;right:12px;left:12px;bottom:calc(158px + env(safe-area-inset-bottom,0px));z-index:25;max-height:62vh;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.chat h4{margin:0;padding:12px 16px;background:var(--g);color:var(--on)}
+#msgs{padding:12px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:8px;min-height:140px}
+#msgs div{max-width:85%;padding:9px 13px;border-radius:14px;background:var(--soft)}
+#msgs div.me{align-self:flex-end;background:var(--g);color:var(--on)}
+#msgs a{display:inline-block;margin-top:6px;font-weight:700;color:var(--b);text-decoration:underline}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.chips button{min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:inherit;font-size:15px;cursor:pointer}
+.chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+@media(min-width:860px){.fab{bottom:24px}.chat{left:auto;width:370px;bottom:96px}}
+.item b{text-align:right}
+.org{display:flex;flex-direction:column;align-items:center}
+.org .lv{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;position:relative;padding-top:22px}
+.org .lv::before{content:"";position:absolute;top:0;left:50%;height:22px;border-left:2px solid var(--line)}
+.org .lv:first-child{padding-top:0}.org .lv:first-child::before{display:none}
+.org .bx{padding:8px 14px;border-radius:12px;background:var(--soft);font-weight:600;text-align:center;min-width:140px}
+.org .bx small{display:block;font-weight:400;color:var(--mu);font-size:14px}
+.org .bx.top{background:var(--g);color:var(--on)}.org .bx.top small{color:inherit}
+.op{background:var(--soft)}
+.inf{text-align:center}.inf span{font-size:34px}.inf p{margin:0}
+footer{max-width:1080px;margin:20px auto 0;padding:16px;color:var(--mu);font-size:15px;text-align:center}
+  </style>
+ </head>
+ <body>
+  <header>
+   <div class="wrap">
+    <a class="logo" href="#beranda">
+     <img src="r1/kabupaten2.webp" width="45" height="45" object-fit:contain; background:transparent; alt="logo desa Marga Mulya" class="logo-img"> 
+     </i>
+     <span>
+      Desa Marga Mulya
+      <small>
+       Kec. Mauk, Kab. Tanggerang,Banten
+      </small>
+     </span>
+    </a>
+    <!-- Penampil Waktu Real-Time -->
+    <div aria-live="off" class="clock-box" id="realtime-clock">
+     <span class="time" id="clock-time">--:--:--</span>
+     <span class="date" id="clock-date">Memuat tanggal...</span>
+    </div>
+    <nav class="top" id="nt">
+    </nav>
+   </div>
+  </header>
+  <main>
+   <section class="pg" id="p-beranda">
+    <div class="slider">
+     <div class="slides" id="sls">
+     </div>
+     <button aria-label="Foto sebelumnya" class="sb prev">
+      ‹
+     </button>
+     <button aria-label="Foto berikutnya" class="sb next">
+      ›
+     </button>
+     <div class="dots" id="dots">
+     </div>
+    </div>
+    <div class="quick">
+     <a href="#surat">
+      <span>
+       📄
+      </span>
+      Ajukan Surat
+     </a>
+     <a href="#aduan">
+      <span>
+       📣
+      </span>
+      Kirim Pengaduan
+     </a>
+     <a href="#surat">
+      <span>
+       🔎
+      </span>
+      Lacak Surat
+     </a>
+     <a href="#data">
+      <span>
+       📊
+      </span>
+      Data Desa
+     </a>
+    </div>
+    <h2>
+     Pengumuman penting
+    </h2>
+    <div class="card" id="ann">
+    </div>
+    <h2>
+     Berita terbaru
+    </h2>
+    <div class="grid" id="news">
+    </div>
+   </section>
+   <section class="pg" hidden="" id="p-profil">
+    <h2>
+      <div class="card">
+     Profil desa Marga Mulya
+    </h2>
+    Ayo Mengenal sejarah Desa Marga Mulya,arah pembangunan,wilayah, dan perangkat desa Marga Mulya.
+    <p>
+    <h2>
+    </p>
+     <div class="card">
+     Sejarah desa
+    </h2>
+     <p>
+      -Nama Asli (Desa Celong): Sebelum berubah nama menjadi Desa Marga Mulya, wilayah ini dulunya dikenal dengan nama Desa Celong.
+     </p>
+     <p>
+     -Asal-Usul Nama Celong: Berdasarkan penelusuran sejarah lisan dan wawancara tokoh masyarakat, nama "Celong" konon berasal dari sebutan Mbah Beruk (sosok yang pertama kali membuka atau merintis wilayah tersebut) yang berarti mata cekung, karena anaknya tidak diberi makan selama satu hari satu malam akibat terjebak banjir saat perjalanan pulang.  “Sumber Asri”.
+     </p>
+     <p>
+      -Perubahan Menjadi Marga Mulya: Nama desa ini kemudian mengalami perubahan pada masa program AMD (ABRI Masuk Desa) sekitar tahun 1982.
+     </p>
+     <p class="mu">
+       -klik link dibawah ini agar mengetahui desa marga mulya lebih banyak!
+     </p>
+     <p>
+       <a href="https://www.kompasiana.com/nurjanatinrynt/64db361f08a8b54ffe40ced2/ungkap-asal-usul-nama-desa-margamulya-oleh-mahasiswa-kkn-undip-melalui-penelusuran-sejarah" target="_blank">
+        https://www.kompasiana.com/nurjanatinrynt/64db361f08a8b54ffe40ced2/ungkap-asal-usul-nama-desa-margamulya-oleh-mahasiswa-kkn-undip-melalui-penelusuran-sejarah
+       </a>
+     </p>
+    </div>
+    <h2>
+     Visi dan misi
+    </h2>
+    <div class="grid">
+     <div class="card">
+      <h3>
+       Visi
+      </h3>
+      <p>
+       Terwujudnya Desa Sumber Asri yang mandiri, sejahtera, dan lestari melalui pelayanan terbuka dan gotong royong.
+      </p>
+     </div>
+     <div class="card">
+      <h3>
+       Misi
+      </h3>
+      <ul style="margin:0;padding-left:20px">
+       <li>
+        Pelayanan publik cepat dan transparan
+       </li>
+       <li>
+        Penguatan BUMDes dan UMKM
+       </li>
+       <li>
+        Pembangunan infrastruktur merata
+       </li>
+       <li>
+        Pelestarian lingkungan dan budaya
+       </li>
+      </ul>
+     </div>
+    </div>
+    <h2>
+     Lokasi dan batas wilayah
+    </h2>
+    <div class="card">
+     <div class="item">
+      <span class="mu">
+       Alamat kantor desa
+      </span>
+      <b>
+        Jl. RE Martadinata (Tanjung Kait - Mauk), Kampung Bebulak RT.006/RW.003, Desa Marga Mulya, Kecamatan Mauk, Kabupaten Tangerang, Banten 15530.
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Kecamatan / Kabupaten
+      </span>
+      <b>
+       Mauk, Tanggerang,Banten
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Luas wilayah desa Marga Mulya
+      </span>
+      <b>
+       5,360 km²
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Ketinggian
+      </span>
+      <b>
+       520 m di atas permukaan laut
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Koordinat (contoh)
+      </span>
+      <b>
+       -7,25; 110,50
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Batas utara
+      </span>
+      <b>
+       Desa Tegal Harjo
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Batas selatan
+      </span>
+      <b>
+       Desa Karang Sari
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Batas timur
+      </span>
+      <b>
+       Hutan Lindung Wanagiri
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Batas barat
+      </span>
+      <b>
+       Desa Mulya Jaya
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Jarak ke kantor kecamatan
+      </span>
+      <b>
+       4 km
+      </b>
+     </div>
+     <div class="item">
+      <span class="mu">
+       Jarak ke ibu kota kabupaten
+      </span>
+      <b>
+       22 km
+      </b>
+     </div>
+    </div>
+    <h2>
+     Peta wilayah
+    </h2>
+    <div class="card">
+     <svg aria-label="Peta wilayah desa" role="img" style="width:100%;height:auto" viewbox="0 0 600 330">
+      <rect fill="var(--soft)" height="330" rx="12" width="600">
+      </rect>
+      <path d="M70 60L300 30L540 80L520 270L300 300L90 260Z" fill="var(--card)" stroke="var(--g)" stroke-width="3">
+      </path>
+      <path d="M40 190Q200 140 300 190T580 160" fill="none" opacity=".5" stroke="var(--b)" stroke-width="12">
+      </path>
+      <path d="M300 30V300M70 160H530" stroke="var(--line)" stroke-dasharray="8 6" stroke-width="3">
+      </path>
+      <g fill="var(--tx)" font-size="17" text-anchor="middle">
+       <text x="185" y="100">
+        Dusun Krajan
+       </text>
+       <text x="420" y="110">
+        Dusun Tegalrejo
+       </text>
+       <text x="185" y="245">
+        Dusun Sukamaju
+       </text>
+       <text x="420" y="245">
+        Dusun Kebonsari
+       </text>
+      </g>
+      <circle cx="300" cy="160" fill="var(--g)" r="13">
+      </circle>
+      <text fill="var(--g)" font-size="15" font-weight="700" text-anchor="middle" x="300" y="196">
+       Balai Desa
+      </text>
+     </svg>
+     <p class="mu" style="margin:8px 0 0">
+      Luas wilayah contoh: 6,4 km². Garis biru menunjukkan sungai.
+     </p>
+    </div>
+    <h2>
+     Prasarana desa
+    </h2>
+    <div class="grid s" id="infra">
+    </div>
+    <h2>
+     Struktur organisasi
+    </h2>
+    <div class="card">
+     <div class="org">
+      <div class="lv">
+       <div class="bx top">
+        Kepala Desa
+        <small>
+         Pemerintah Desa
+        </small>
+       </div>
+      </div>
+      <div class="lv">
+       <div class="bx">
+        Sekretaris Desa
+        <small>
+         Koordinator staf
+        </small>
+       </div>
+      </div>
+      <div class="lv">
+       <div class="bx">
+        Kaur Keuangan
+        <small>
+         Unsur staf
+        </small>
+       </div>
+       <div class="bx">
+        Kaur Perencanaan
+        <small>
+         Unsur staf
+        </small>
+       </div>
+       <div class="bx">
+        Kaur Umum
+        <small>
+         Unsur staf
+        </small>
+       </div>
+      </div>
+      <div class="lv">
+       <div class="bx">
+        Kasi Pemerintahan
+        <small>
+         Pelaksana teknis
+        </small>
+       </div>
+       <div class="bx">
+        Kasi Kesejahteraan
+        <small>
+         Pelaksana teknis
+        </small>
+       </div>
+       <div class="bx">
+        Kasi Pelayanan
+        <small>
+         Pelaksana teknis
+        </small>
+       </div>
+      </div>
+      <div class="lv">
+       <div class="bx">
+        Kadus I
+        <small>
+         Kewilayahan
+        </small>
+       </div>
+       <div class="bx">
+        Kadus II
+        <small>
+         Kewilayahan
+        </small>
+       </div>
+       <div class="bx">
+        Kadus III
+        <small>
+         Kewilayahan
+        </small>
+       </div>
+       <div class="bx">
+        Kadus IV
+        <small>
+         Kewilayahan
+        </small>
+       </div>
+      </div>
+     </div>
+     <p class="mu" style="margin:14px 0 0">
+      Badan Permusyawaratan Desa (BPD) dan LPM bermitra dengan Kepala Desa dalam pengawasan dan perencanaan.
+     </p>
+    </div>
+    <h2>
+     Perangkat desa
+    </h2>
+    <div class="grid s" id="staff">
+    </div>
+   </section>
+   <section class="pg" hidden="" id="p-surat">
+    <h1>
+     Layanan surat online
+    </h1>
+    <p class="mu">
+     Ajukan surat dari rumah, lalu pantau statusnya.
+    </p>
+    <div class="grid">
+     <div class="card">
+      <h2 style="margin-top:0">
+       Formulir pengajuan
+      </h2>
+      <form id="fs">
+       <label for="js">
+        Jenis surat
+       </label>
+       <select id="js">
+        <option>
+         Surat Keterangan Domisili
+        </option>
+        <option>
+         Surat Keterangan Tidak Mampu
+        </option>
+        <option>
+         Surat Keterangan Usaha
+        </option>
+        <option>
+         Pengantar SKCK
+        </option>
+        <option>
+         Surat Pengantar Nikah
+        </option>
+       </select>
+       <label for="ns">
+        Nama lengkap
+       </label>
+       <input autocomplete="name" id="ns" required=""/>
+       <label for="nk">
+        NIK (16 digit)
+       </label>
+       <input id="nk" inputmode="numeric" maxlength="16" pattern="[0-9]{16}" required=""/>
+       <label for="kp">
+        Keperluan
+       </label>
+       <textarea id="kp" required=""></textarea>
+       <p style="margin-top:14px">
+        <button class="btn" style="width:100%">
+         Kirim pengajuan
+        </button>
+       </p>
+      </form>
+      <div id="sr">
+      </div>
+     </div>
+     <div class="card">
+      <h2 style="margin-top:0">
+       Lacak status surat
+      </h2>
+      <form id="ft">
+       <label for="kd">
+        Kode pengajuan
+       </label>
+       <input id="kd" placeholder="Contoh: SRT-2026-0101" required=""/>
+       <p style="margin-top:14px">
+        <button class="btn alt" style="width:100%">
+         Cek status
+        </button>
+       </p>
+      </form>
+      <div id="tr">
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="pg" hidden="" id="p-aduan">
+    <h1>
+     Pengaduan masyarakat
+    </h1>
+    <p class="mu">
+     Sampaikan keluhan atau saran. Laporan dibaca perangkat desa.
+    </p>
+    <div class="grid">
+     <div class="card">
+      <h2 style="margin-top:0">
+       Kirim pengaduan
+      </h2>
+      <form id="fa">
+       <label for="an">
+        Nama (boleh dikosongkan)
+       </label>
+       <input id="an"/>
+       <label for="ak">
+        Kategori
+       </label>
+       <select id="ak">
+        <option>
+         Infrastruktur
+        </option>
+        <option>
+         Lingkungan
+        </option>
+        <option>
+         Pelayanan
+        </option>
+        <option>
+         Keamanan
+        </option>
+        <option>
+         Lainnya
+        </option>
+       </select>
+       <label for="ai">
+        Isi pengaduan
+       </label>
+       <textarea id="ai" required=""></textarea>
+       <p style="margin-top:14px">
+        <button class="btn" style="width:100%">
+         Kirim pengaduan
+        </button>
+       </p>
+      </form>
+      <div id="ar">
+      </div>
+     </div>
+     <div class="card">
+      <h2 style="margin-top:0">
+       Status pengaduan
+      </h2>
+      <div id="cl">
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="pg" hidden="" id="p-data">
+    <h1>
+     Data desa
+    </h1>
+    <p class="mu">
+     Angka di halaman ini adalah data contoh.
+    </p>
+    <h2>
+     Indeks Desa Membangun (IDM)
+    </h2>
+    <div class="grid">
+     <div class="card">
+      <div class="big">
+       0,78
+      </div>
+      <p>
+       <span class="tag">
+        Status: Maju
+       </span>
+      </p>
+      <p class="mu">
+       Skor IDM gabungan tiga dimensi.
+      </p>
+     </div>
+     <div class="card" id="idm">
+     </div>
+    </div>
+    <h2>
+     SDGs Desa
+    </h2>
+    <div class="card" id="sdg">
+    </div>
+    <h2>
+     Statistik kependudukan
+    </h2>
+    <div class="grid s" id="stat">
+    </div>
+    <h2>
+     Grafik
+    </h2>
+    <div class="grid">
+     <div class="card">
+      <h3>
+       Penduduk menurut usia
+      </h3>
+      <div class="cols" id="age">
+      </div>
+     </div>
+     <div class="card">
+      <h3>
+       Mata pencaharian
+      </h3>
+      <div class="donut" id="dn">
+      </div>
+      <div id="lg">
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="pg" hidden="" id="p-umkm">
+    <h1>
+     BUMDes dan UMKM
+    </h1>
+    <p class="mu">
+     Produk warga Desa Sumber Asri. Pesan langsung lewat WhatsApp.
+    </p>
+    <div class="grid" id="prods" style="margin-top:12px">
+    </div>
+    <h2>
+     Kontak pemesanan
+    </h2>
+    <div class="card">
+     <p>
+      <b>
+       BUMDes Sumber Asri Makmur
+      </b>
+     </p>
+     <p style="margin:0">
+      WhatsApp: 0812-0000-0000 (contoh)
+      <br/>
+      Alamat: Jl. Raya Desa No. 1
+      <br/>
+      Layanan: Senin–Sabtu, 08.00–16.00 WIB
+     </p>
+    </div>
+   </section>
+  </main>
+  <footer>
+   © 2026 Pemerintah Desa Sumber Asri. Template dengan data contoh.
+  </footer>
+  <nav class="bot" id="nb">
+  </nav>
+  <button aria-label="Buka asisten desa" class="fab" id="fab">
+   💬
+  </button>
+  <div class="chat" hidden="" id="chat">
+   <h4>
+    Asisten Desa
+   </h4>
+   <div id="msgs">
+   </div>
+   <div class="chips" id="chips">
+   </div>
+   <form id="fc">
+    <input aria-label="Pertanyaan" id="ci" placeholder="Tulis pertanyaan…"/>
+    <button class="btn">
+     Kirim
+    </button>
+   </form>
+  </div>
+  <script>
+   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* Waktu Real-Time (Jam, Tanggal, Bulan, Tahun) */
+function updateClock() {
+    const now = new Date();
+    const jam = String(now.getHours()).padStart(2, '0');
+    const menit = String(now.getMinutes()).padStart(2, '0');
+    const detik = String(now.getSeconds()).padStart(2, '0');
+    
+    const opsiTanggal = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const tanggalLengkap = now.toLocaleDateString('id-ID', opsiTanggal);
+    
+    $('#clock-time').textContent = `${jam}:${menit}:${detik} WIB`;
+    $('#clock-date').textContent = tanggalLengkap;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+const NAV = [['beranda', 'Beranda', '🏠'], ['profil', 'Profil', '🏛️'], ['surat', 'Surat', '📄'], ['aduan', 'Aduan', '📣'], ['data', 'Data', '📊'], ['umkm', 'UMKM', '🛍️']];
+$('#nt').innerHTML = NAV.map(n => `<a href="#${n[0]}" data-n="${n[0]}">${n[1]}</a>`).join('');
+$('#nb').innerHTML = NAV.map(n => `<a href="#${n[0]}" data-n="${n[0]}"><span>${n[2]}</span>${n[1]}</a>`).join('');
+function route() {
+    let h = location.hash.slice(1);
+    if (!NAV.some(n => n[0] === h))
+        h = 'beranda';
+    $$('.pg').forEach(e => e.hidden = e.id !== 'p-' + h);
+    $$('[data-n]').forEach(a => a.classList.toggle('on', a.dataset.n === h));
+    scrollTo(0, 0);
+}
+addEventListener('hashchange', route);
+route();
+/* Slider */
+const S = [['Sawah terasering di pagi hari', 'Dusun Krajan', '#bfe3d4', '#5fae8c', '#2e8b6e'], ['Balai desa dan taman warga', 'Pusat kegiatan masyarakat', '#cfe4f3', '#6aa6cf', '#3b7fb0'], ['Panen raya kebun kopi', 'Hasil unggulan desa', '#dcefd9', '#8cc58a', '#3f9a6b']];
+const scene = (a, b, c) => `<svg viewBox="0 0 800 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="800" height="300" fill="${a}"/><circle cx="640" cy="80" r="38" fill="#fff" opacity=".75"/><path d="M0 210Q160 120 320 190T640 180T800 160V300H0Z" fill="${b}"/><path d="M0 255Q200 195 400 245T800 225V300H0Z" fill="${c}"/></svg>`;
+$('#sls').innerHTML = S.map(s => `<div class="sl">${scene(s[2], s[3], s[4])}<p><b>${s[0]}</b><span>${s[1]}</span></p></div>`).join('');
+$('#dots').innerHTML = S.map(() => '<i></i>').join('');
+let i = 0;
+const go = n => { i = (n + S.length) % S.length; $('#sls').style.transform = `translateX(-${i * 100}%)`; $$('#dots i').forEach((d, k) => d.classList.toggle('on', k === i)); };
+go(0);
+$('.prev').onclick = () => go(i - 1);
+$('.next').onclick = () => go(i + 1);
+setInterval(() => go(i + 1), 5500);
+/* Beranda */
+$('#ann').innerHTML = [['Penting', 'Pembayaran PBB dibuka sampai 30 November 2026 di kantor desa.'], ['Info', 'Musyawarah Desa RKP 2027: Jumat, 20 November, pukul 19.30 di Balai Desa.'], ['Info', 'Vaksinasi hewan ternak gratis, Sabtu 21 November di lapangan desa.']].map(a => `<div class="ann"><span class="tag ${a[0] == 'Penting' ? 'w' : ''}">${a[0]}</span><span>${a[1]}</span></div>`).join('');
+$('#news').innerHTML = [['🛣️', 'Gotong royong perbaikan jalan Dusun Krajan', '12 Nov 2026', 'Ratusan warga bekerja bersama memperbaiki jalan sepanjang 800 meter.'], ['🩺', 'Posyandu balita November dibuka', '10 Nov 2026', 'Penimbangan dan imunisasi gratis setiap Selasa pagi di balai dusun.'], ['💻', 'Pelatihan pemasaran digital untuk UMKM', '8 Nov 2026', 'Pelaku usaha belajar memotret produk dan berjualan lewat ponsel.']].map(n => `<article class="card nw"><div class="im">${n[0]}</div><span class="mu">${n[2]}</span><h3>${n[1]}</h3><p class="mu" style="margin:0">${n[3]}</p></article>`).join('');
+/* Profil */
+$('#staff').innerHTML = [['Budi Santoso', 'Kepala Desa'], ['Siti Rahmawati', 'Sekretaris Desa'], ['Agus Prasetyo', 'Kaur Keuangan'], ['Dewi Lestari', 'Kaur Perencanaan'], ['Hendra Wijaya', 'Kasi Pelayanan'], ['Rina Marlina', 'Kasi Kesejahteraan'], ['Joko Susilo', 'Kepala Dusun I'], ['Eko Purnomo', 'Kepala Dusun II']].map((p, k) => `<div class="card stf"><div class="ph" style="background:hsl(${150 + k * 13} 40% 62%)"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.5"/><path d="M3 24c0-5.5 4-8 9-8s9 2.5 9 8z"/></svg></div><p><b>${p[0]}</b></p><p class="mu">${p[1]}</p></div>`).join('');
+$('#infra').innerHTML = [['🛣️', 'Jalan desa', '18,5 km', '65% sudah beraspal'], ['💧', 'Air bersih', '3 sumber mata air', 'Melayani 92% KK'], ['⚡', 'Listrik', '98% KK', 'Penerangan jalan 120 titik'], ['🌐', 'Internet', '3 titik WiFi desa', 'Balai desa dan 2 dusun'], ['🏫', 'Pendidikan', '5 sekolah', '2 PAUD, 2 SD, 1 SMP'], ['🏥', 'Kesehatan', '1 Pustu, 4 Posyandu', 'Bidan desa siaga'], ['🛕', 'Tempat ibadah', '8 unit', 'Masjid, musala, dan lainnya'], ['🏟️', 'Fasilitas umum', 'Balai, pasar, lapangan', 'Masing-masing 1 unit']].map(f => `<div class="card inf"><span>${f[0]}</span><p><b>${f[1]}</b></p><p><b style="color:var(--g)">${f[2]}</b></p><p class="mu">${f[3]}</p></div>`).join('');
+/* Surat */
+const T = { 'SRT-2026-0101': [3, 'Surat Keterangan Domisili'], 'SRT-2026-0102': [1, 'Surat Keterangan Usaha'], 'SRT-2026-0103': [2, 'Pengantar SKCK'] };
+let sn = 104;
+const ST = ['Diajukan', 'Diverifikasi petugas', 'Sedang diproses', 'Siap diambil di kantor desa'];
+const op = (sel, html) => { const el = $(sel); el.innerHTML = '<p class="card op" style="margin-top:14px">🤖 Operator AI sedang menyiapkan balasan…</p>'; setTimeout(() => el.innerHTML = `<div class="card op" style="margin-top:14px"><b>🤖 Operator AI</b><p style="margin:6px 0 0">${html}</p></div>`, 500); };
+const EST = { 'Surat Keterangan Domisili': 'Estimasi selesai 1 hari kerja.', 'Surat Keterangan Tidak Mampu': 'Estimasi selesai 2 hari kerja.', 'Surat Keterangan Usaha': 'Estimasi selesai 2 hari kerja.', 'Pengantar SKCK': 'Estimasi selesai 1 hari kerja.', 'Surat Pengantar Nikah': 'Estimasi selesai 3 hari kerja.' };
+const AE = { Infrastruktur: 'Laporan diteruskan ke Kaur Perencanaan, dan tim akan meninjau lokasi dalam 1–3 hari kerja.', Lingkungan: 'Laporan diteruskan ke Kasi Kesejahteraan, dan tim akan memeriksa lokasi dalam 1–3 hari kerja.', Pelayanan: 'Masukan Anda diteruskan ke Kasi Pelayanan dan akan ditanggapi maksimal 2 hari kerja.', Keamanan: 'Laporan ditandai prioritas dan diteruskan ke Kepala Desa. Jika situasi darurat, segera hubungi 110 atau perangkat desa terdekat.', Lainnya: 'Laporan akan dibaca perangkat desa dan ditanggapi dalam 3 hari kerja.' };
+let ac = 4;
+$('#fs').onsubmit = e => { e.preventDefault(); const c = 'SRT-2026-0' + (sn++), j = $('#js').value, n = esc($('#ns').value.trim().split(' ')[0]); T[c] = [0, j]; e.target.reset(); op('#sr', `Terima kasih, ${n}! Pengajuan <b>${esc(j)}</b> sudah kami terima dengan kode <b>${c}</b>. ${EST[j]} Siapkan KTP dan KK asli saat mengambil surat. Pantau prosesnya lewat kolom Lacak status. Jika ada data yang kurang, petugas akan menghubungi Anda.`); };
+$('#ft').onsubmit = e => {
+    e.preventDefault();
+    const c = $('#kd').value.trim().toUpperCase(), t = T[c];
+    $('#tr').innerHTML = t ? `<p style="margin-top:14px"><b>${esc(t[1])}</b><br><span class="mu">${c}</span></p><ol class="steps">${ST.map((s, k) => `<li class="${k < t[0] ? 'd' : k == t[0] ? 'n' : ''}">${s}</li>`).join('')}</ol>` : `<p style="margin-top:14px">Kode tidak ditemukan. Periksa kembali kode pengajuan Anda.</p>`;
+};
+/* Aduan */
+const C = [['Lampu jalan mati di RT 03', 'Infrastruktur', 'Diproses', '9 Nov'], ['Sampah menumpuk dekat pasar', 'Lingkungan', 'Diterima', '11 Nov'], ['Saluran irigasi tersumbat', 'Lingkungan', 'Selesai', '2 Nov']];
+const cls = { Diterima: 'nw2', Diproses: 'pr', Selesai: 'ok' };
+const rc = () => $('#cl').innerHTML = C.map(c => `<div class="item"><div><b>${esc(c[0])}</b><br><span class="mu">${c[1]} · ${c[3]}${c[4] ? ' · ' + c[4] : ''}</span></div><span class="st ${cls[c[2]]}">${c[2]}</span></div>`).join('');
+rc();
+$('#fa').onsubmit = e => { e.preventDefault(); const k = $('#ak').value, n = esc($('#an').value.trim().split(' ')[0]), c = 'ADU-2026-0' + (ac++); C.unshift([$('#ai').value.slice(0, 60), k, 'Diterima', '13 Nov', c]); e.target.reset(); rc(); op('#ar', `${n ? 'Terima kasih, ' + n + '. ' : 'Terima kasih. '}Pengaduan kategori <b>${k}</b> sudah kami terima dengan kode <b>${c}</b>. ${AE[k]} Pantau perkembangannya di daftar Status pengaduan.`); };
+/* Data */
+$('#idm').innerHTML = [['Indeks Ketahanan Sosial', 81], ['Indeks Ketahanan Ekonomi', 74], ['Indeks Ketahanan Lingkungan', 79]].map(d => `<b>${d[0]}</b> <span style="float:right">0,${d[1]}</span><div class="pb"><b style="width:${d[1]}%"></b></div>`).join('');
+$('#sdg').innerHTML = '<p class="mu">Capaian contoh untuk 6 dari 18 tujuan.</p><div class="grid">' + [['Desa tanpa kemiskinan', 72], ['Desa sehat dan sejahtera', 81], ['Pendidikan desa berkualitas', 76], ['Air bersih dan sanitasi', 88], ['Energi bersih dan terjangkau', 69], ['Desa peduli lingkungan', 74]].map(d => `<div><b>${d[0]}</b> <span style="float:right">${d[1]}%</span><div class="pb"><b style="width:${d[1]}%"></b></div></div>`).join('') + '</div>';
+$('#stat').innerHTML = [['Penduduk', '4.212'], ['Kepala keluarga', '1.268'], ['Laki-laki', '2.098'], ['Perempuan', '2.114']].map(s => `<div class="card"><div class="big" style="font-size:30px">${s[1]}</div><span class="mu">${s[0]}</span></div>`).join('');
+const age = [['0–14', 980], ['15–29', 1120], ['30–44', 1090], ['45–59', 640], ['60+', 382]];
+$('#age').innerHTML = age.map(a => `<div><small>${a[1]}</small><b style="height:${a[1] / 1120 * 78}%"></b><small>${a[0]}</small></div>`).join('');
+const J = [['Petani', 42, '#26795f'], ['Pedagang dan UMKM', 21, '#2f77a8'], ['Buruh', 14, '#6fb3a0'], ['PNS dan guru', 8, '#8dbbe0'], ['Lainnya', 15, '#b9cfc9']];
+let a = 0;
+$('#dn').style.background = 'conic-gradient(' + J.map(j => { const s = a; a += j[1]; return `${j[2]} ${s}% ${a}%`; }).join(',') + ')';
+$('#lg').innerHTML = J.map(j => `<div class="lg"><i style="background:${j[2]}"></i>${j[0]} (${j[1]}%)</div>`).join('');
+/* UMKM */
+$('#prods').innerHTML = [['Kopi Robusta Sumber Asri', 'Rp 45.000 / 250 g', '☕', 'Koperasi Tani Makmur'], ['Keripik Singkong Balado', 'Rp 18.000 / bungkus', '🥔', 'BUMDes'], ['Madu Hutan Murni', 'Rp 85.000 / 500 ml', '🍯', 'Kelompok Lebah Desa'], ['Batik Tulis Motif Padi', 'Rp 250.000 / lembar', '👘', 'Sanggar Batik Asri'], ['Gula Aren Cetak', 'Rp 22.000 / 500 g', '🟤', 'UMKM Bu Marni'], ['Anyaman Bambu', 'Rp 60.000 / buah', '🧺', 'Kelompok Perajin']].map(p => `<article class="card pd"><div class="im">${p[2]}</div><h3>${p[0]}</h3><p class="mu" style="margin:0">${p[3]}</p><p><b>${p[1]}</b></p><a class="btn" href="https://wa.me/6281200000000?text=${encodeURIComponent('Halo, saya ingin memesan ' + p[0])}" target="_blank" rel="noopener">Pesan lewat WhatsApp</a></article>`).join('');
+/* Chatbot */
+const R = [[/surat|domisili|skck|nikah/, 'Untuk mengurus surat, isi formulir di menu Surat. Status bisa dilacak dengan kode pengajuan.', '#surat', 'Buka layanan surat'], [/aduan|lapor|keluh/, 'Anda bisa menulis pengaduan di menu Aduan dan memantau statusnya di daftar.', '#aduan', 'Buka pengaduan'], [/jam|buka|alamat|kantor/, 'Kantor desa buka Senin–Jumat, 08.00–15.00 WIB, di Jl. Raya Desa No. 1 (contoh).'], [/produk|umkm|beli|pesan|kopi/, 'Lihat katalog produk warga dan pesan lewat WhatsApp di menu UMKM.', '#umkm', 'Lihat produk'], [/data|penduduk|idm|sdgs/, 'Data IDM, SDGs, dan statistik penduduk ada di menu Data.', '#data', 'Lihat data']];
+const say = (t, me, l, lt) => { const d = document.createElement('div'); d.className = me ? 'me' : ''; d.textContent = t; if (l) {
+    const a = document.createElement('a');
+    a.href = l;
+    a.textContent = lt;
+    a.onclick = () => $('#chat').hidden = true;
+    d.append(document.createElement('br'), a);
+} $('#msgs').append(d); $('#msgs').scrollTop = 1e5; };
+const ask = q => { say(q, 1); const r = R.find(r => r[0].test(q.toLowerCase())); setTimeout(() => r ? say(r[1], 0, r[2], r[3]) : say('Maaf, saya belum paham. Coba pilih salah satu topik di bawah atau hubungi kantor desa.'), 350); };
+say('Halo! Saya Asisten Desa. Ada yang bisa dibantu?');
+$('#chips').innerHTML = ['Urus surat', 'Kirim aduan', 'Jam layanan', 'Produk desa'].map(c => `<button type="button">${c}</button>`).join('');
+$$('#chips button').forEach(b => b.onclick = () => ask(b.textContent));
+$('#fc').onsubmit = e => { e.preventDefault(); const v = $('#ci').value.trim(); if (v) {
+    ask(v);
+    $('#ci').value = '';
+} };
+$('#fab').onclick = () => { const c = $('#chat'); c.hidden = !c.hidden; };
+  </script>
+ </body>
+</html>
